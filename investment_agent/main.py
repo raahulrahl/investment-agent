@@ -7,14 +7,13 @@ import os
 import sys
 import traceback
 from pathlib import Path
-from textwrap import dedent
 from typing import Any
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.models.openrouter import OpenRouter
-from agno.tools.yfinance import YFinanceTools
 from agno.os import AgentOS
+from agno.tools.yfinance import YFinanceTools
 from bindu.penguin.bindufy import bindufy
 from dotenv import load_dotenv
 
@@ -202,15 +201,14 @@ def main():
         if args.use_agentos:
             # Use AgentOS UI
             print("🚀 Starting Investment Agent with AgentOS UI...")
-            
+
             # Initialize agent synchronously for AgentOS
             asyncio.run(initialize_agent())
-            
+
             # Create AgentOS instance
             if agent is not None:
                 agent_os = AgentOS(agents=[agent])
-                app = agent_os.get_app()
-                
+
                 # Serve with AgentOS
                 agent_os.serve(app="investment_agent:app", reload=True)
             else:
