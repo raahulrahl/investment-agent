@@ -1,0 +1,273 @@
+id: investment-agent-v1
+name: investment-agent
+version: 1.0.0
+author: paras@getbindu.com
+
+# Description
+description: |
+  AI investment analyst that researches stock prices, analyst recommendations, and stock fundamentals.
+  Provides comprehensive financial analysis, technical indicators, and actionable investment insights using YFinance data.
+
+# Tags and Modes
+tags:
+  - investment
+  - stock-analysis
+  - financial-research
+  - portfolio-management
+  - market-analysis
+  - trading
+  - fundamentals
+  - technical-analysis
+
+input_modes:
+  - text/plain
+  - application/json
+
+output_modes:
+  - text/plain
+  - application/json
+  - text/markdown
+
+# Example Queries
+examples:
+  - "Analyze Apple (AAPL) stock and provide investment recommendation"
+  - "Compare Microsoft vs Google stock performance over the last year"
+  - "What are the key fundamentals for Tesla stock?"
+  - "Provide technical analysis for Amazon stock"
+  - "Research dividend-paying stocks in the S&P 500"
+
+# Detailed Capabilities
+capabilities_detail:
+  primary_capability:
+    supported: true
+    description: "Comprehensive stock analysis and investment research"
+    features:
+      - "Real-time stock price data and historical performance"
+      - "Fundamental analysis including P/E, EPS, market cap, dividend yield"
+      - "Technical analysis with indicators and chart patterns"
+      - "Analyst recommendations and price targets"
+      - "Comparative analysis between multiple stocks"
+      - "Risk assessment and portfolio insights"
+    limitations: "Dependent on YFinance data availability; market data may have delays"
+
+  secondary_capability:
+    supported: true
+    description: "Investment strategy guidance and market insights"
+    features:
+      - "Actionable investment recommendations"
+      - "Market trend analysis and sector performance"
+      - "Risk management strategies"
+      - "Portfolio diversification suggestions"
+      - "Entry and exit point recommendations"
+
+# Requirements
+requirements:
+  packages:
+    - agno>=2.2.0
+    - bindu>=2026.9.4
+    - yfinance>=0.2.18
+    - openai>=2.11.0
+    - python-dotenv>=1.0.1
+  system:
+    - "Internet access for stock market data"
+  min_memory_mb: 512
+  external_services:
+    - YFinance API
+    - OpenAI API or OpenRouter API
+
+# Performance Metrics
+performance:
+  avg_processing_time_ms: 2000
+  avg_time_per_stock_ms: 300
+  max_concurrent_requests: 5
+  memory_per_request_mb: 512
+  timeout_seconds: 90
+  max_stocks_per_query: 10
+  scalability: horizontal
+
+# Tool Restrictions
+allowed_tools:
+  - YFinanceTools
+  - Read
+  - Search
+  - Analyze
+  - Generate
+
+# Rich Documentation
+documentation:
+  overview: |
+    Provides AI-powered investment analysis and stock research capabilities.
+    Combines fundamental analysis, technical indicators, and market data to deliver actionable investment insights.
+    Excels at stock comparison, portfolio analysis, and investment recommendation generation.
+
+  use_cases:
+    when_to_use:
+      - "Stock analysis and investment research"
+      - "Portfolio performance evaluation"
+      - "Market trend analysis"
+      - "Risk assessment and management"
+      - "Comparative stock analysis"
+      - "Investment recommendation generation"
+
+    when_not_to_use:
+      - "Real-time trading advice"
+      - "Financial planning advice"
+      - "Tax or legal advice"
+      - "Guaranteed investment returns"
+      - "Cryptocurrency analysis (unless specifically supported)"
+      - "Options or derivatives analysis"
+
+  input_structure: |
+    Accepts investment analysis queries in JSON or text format:
+
+    {
+      "query": "Stock symbol or investment question",
+      "analysis_type": "fundamental|technical|comparative",
+      "timeframe": "1d|1w|1m|3m|6m|1y|2y|5y|10y",
+      "stocks": ["AAPL", "MSFT", "GOOGL"],
+      "metrics": ["price", "volume", "pe_ratio", "dividend_yield"],
+      "risk_tolerance": "low|medium|high"
+    }
+
+    Constraints:
+    - Max stocks per query: 10
+    - Timeout: 90 seconds
+    - Language: English primary
+
+  output_format: |
+    Returns structured investment analysis reports:
+
+    Stock Analysis Report:
+    - STOCK_OVERVIEW: Basic company information and current status
+    - PRICE_ANALYSIS: Current price, changes, volume, trends
+    - FUNDAMENTAL_ANALYSIS: P/E ratio, EPS, market cap, financial health
+    - TECHNICAL_ANALYSIS: Indicators, support/resistance, patterns
+    - ANALYST_RECOMMENDATIONS: Consensus ratings, price targets
+    - RISK_ASSESSMENT: Risk factors and volatility metrics
+    - INVESTMENT_RECOMMENDATION: Buy/sell/hold with rationale
+    - ACTIONABLE_INSIGHTS: Specific investment steps and considerations
+    - MARKET_CONTEXT: Sector performance and market conditions
+
+    Comparative Analysis:
+    - COMPARISON_TABLE: Side-by-side metrics for multiple stocks
+    - RELATIVE_PERFORMANCE: Performance against sector/market
+    - RANKING: Ranked recommendations based on analysis
+    - PORTFOLIO_IMPLICATIONS: How each fits in diversified portfolio
+
+  error_handling:
+    - "Invalid stock symbol: Returns list of similar valid symbols"
+    - "Market data unavailable: Provides cached data or suggests alternatives"
+    - "Complex query timeout: Returns partial analysis with completion status"
+    - "Insufficient data: Explains limitations and suggests alternatives"
+    - "Market closed: Provides last available data with disclaimer"
+
+  examples:
+    - title: "Apple Stock Analysis"
+      input:
+        query: "Analyze AAPL stock for long-term investment"
+        analysis_type: "comprehensive"
+        timeframe: "1y"
+      output:
+        stock_overview: {...}
+        recommendation: "BUY"
+        confidence_score: 0.85
+        key_metrics: {...}
+
+    - title: "Tech Stock Comparison"
+      input:
+        query: "Compare AAPL vs MSFT vs GOOGL"
+        analysis_type: "comparative"
+        timeframe: "6m"
+      output:
+        comparison_table: {...}
+        ranking: ["AAPL", "MSFT", "GOOGL"]
+        portfolio_allocation: {...}
+
+  best_practices:
+    for_developers:
+      - "Specify analysis type for focused results"
+      - "Use appropriate timeframes for investment horizons"
+      - "Limit number of stocks for comparative analysis"
+      - "Cache frequently requested stock data"
+      - "Implement rate limiting for API calls"
+      - "Handle market hours and data availability"
+
+    for_orchestrators:
+      - "Route investment queries here"
+      - "Chain with portfolio management agents"
+      - "Adjust timeout based on complexity"
+      - "Use confidence scores for decision making"
+      - "Fallback to cached data during outages"
+      - "Monitor data freshness and quality"
+
+  installation: |
+    Required packages:
+    pip install agno bindu yfinance openai python-dotenv
+
+    Environment variables:
+    OPENAI_API_KEY
+    OPENROUTER_API_KEY  # Alternative to OpenAI
+
+  versioning:
+    - version: "1.0.0"
+      date: "2026-01-11"
+      changes: "Initial release with YFinance integration and investment analysis"
+    - version: "1.1.0"
+      status: "planned"
+      changes: "Enhanced portfolio optimization and risk modeling"
+    - version: "1.2.0"
+      status: "planned"
+      changes: "Options analysis and advanced technical indicators"
+
+# Assessment fields for skill negotiation
+assessment:
+  keywords:
+    - investment
+    - stock
+    - analysis
+    - portfolio
+    - trading
+    - finance
+    - market
+    - fundamental
+    - technical
+    - recommendation
+    - AAPL
+    - NYSE
+    - NASDAQ
+
+  specializations:
+    - domain: technology_stocks
+      confidence_boost: 0.3
+    - domain: financial_analysis
+      confidence_boost: 0.3
+    - domain: portfolio_management
+      confidence_boost: 0.2
+    - domain: risk_assessment
+      confidence_boost: 0.2
+
+  anti_patterns:
+    - "financial advice"
+    - "guaranteed returns"
+    - "tax advice"
+    - "legal advice"
+    - "real-time trading"
+    - "cryptocurrency"
+    - "options trading"
+
+  complexity_indicators:
+    simple:
+      - "stock price"
+      - "basic info"
+      - "current price"
+      - "company overview"
+    medium:
+      - "analyze stock"
+      - "compare stocks"
+      - "investment recommendation"
+      - "fundamental analysis"
+    complex:
+      - "portfolio optimization"
+      - "risk assessment"
+      - "comprehensive analysis"
+      - "market trends"

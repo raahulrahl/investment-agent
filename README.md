@@ -21,12 +21,15 @@
 
 ## 📖 Overview
 
-A Bindu AI agent that provides intelligent stock analysis and investment research.. Built on the [Bindu Agent Framework](https://github.com/getbindu/bindu) for the Internet of Agents.
+An AI investment analyst that researches stock prices, analyst recommendations, and stock fundamentals using YFinance data. Built on the [Bindu Agent Framework](https://github.com/getbindu/bindu) for the Internet of Agents.
 
 **Key Capabilities:**
-- 🔍 [Add your key capabilities here]
-- ✅ [Add another capability]
-- 🚨 [Add another capability]
+- � **Real-time Stock Analysis**: Current prices, historical data, and market trends
+- 📊 **Fundamental Analysis**: P/E ratios, EPS, market cap, dividend yields
+- 🔍 **Technical Analysis**: Price patterns, support/resistance levels, indicators
+- ⚖️ **Stock Comparisons**: Side-by-side analysis of multiple stocks
+- � **Analyst Recommendations**: Consensus ratings and price targets
+- 🎯 **Actionable Insights**: Investment recommendations with risk assessments
 
 ---
 
@@ -62,16 +65,20 @@ Edit `.env` and add your API keys:
 
 | Key | Get It From | Required |
 |-----|-------------|----------|
-| `OPENROUTER_API_KEY` | [OpenRouter](https://openrouter.ai/keys) | ✅ Yes |
-| `MEM0_API_KEY` | [Mem0 Dashboard](https://app.mem0.ai/dashboard/api-keys) | If you want to use Mem0 tools |
+| `OPENAI_API_KEY` | [OpenAI Platform](https://platform.openai.com/api-keys) | ✅ Yes (or OpenRouter) |
+| `OPENROUTER_API_KEY` | [OpenRouter](https://openrouter.ai/keys) | ✅ Yes (or OpenAI) |
+| `MEM0_API_KEY` | [Mem0 Dashboard](https://app.mem0.ai/dashboard/api-keys) | Optional |
 
 ### Run the Agent
 
 ```bash
-# Start the agent
+# Start with Bindu server (default)
 uv run python -m investment_agent
 
-# Agent will be available at http://localhost:3773
+# Start with AgentOS UI
+uv run python -m investment_agent --use-agentos
+
+# Agent will be available at http://localhost:3773 (Bindu) or AgentOS UI
 ```
 
 ### Github Setup
@@ -93,11 +100,20 @@ gh repo create Paraschamoli/investment-agent --public --source=. --remote=origin
 ### Example Queries
 
 ```bash
-# Example query 1
-"[Add example query here]"
+# Analyze a specific stock
+"Analyze Apple (AAPL) stock for long-term investment"
 
-# Example query 2
-"[Add another example]"
+# Compare multiple stocks
+"Compare Microsoft (MSFT) and Google (GOOGL) stocks over the past year"
+
+# Get fundamentals
+"What are the key fundamentals for Tesla (TSLA) stock?"
+
+# Technical analysis
+"Provide technical analysis for Amazon (AMZN) stock"
+
+# Investment recommendations
+"Should I invest in NVIDIA (NVDA) right now?"
 ```
 
 ### Input Formats
@@ -126,7 +142,7 @@ The agent returns structured output with:
 
 ## 🔌 API Usage
 
-The agent exposes a RESTful API when running. Default endpoint: `http://localhost:3773` 
+The agent exposes a RESTful API when running. Default endpoint: `http://localhost:3773`
 
 ### Quick Start
 
@@ -145,30 +161,38 @@ For complete API documentation, request/response formats, and examples, visit:
 
 ## 🎯 Skills
 
-### investment_agent (v1.0.0)
+### investment-agent (v1.0.0)
 
 **Primary Capability:**
-- [Describe what this skill does]
-- [Add key features]
+- Comprehensive stock analysis and investment research using YFinance data
+- Real-time market data and fundamental analysis
 
 **Features:**
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
+- Real-time stock price data and historical performance analysis
+- Fundamental analysis (P/E ratio, EPS, market cap, dividend yield)
+- Technical analysis with indicators and chart patterns
+- Analyst recommendations and consensus price targets
+- Comparative analysis between multiple stocks
+- Risk assessment and portfolio insights
 
 **Best Used For:**
-- [Use case 1]
-- [Use case 2]
-- [Use case 3]
+- Stock analysis and investment research
+- Portfolio performance evaluation
+- Market trend analysis and sector performance
+- Risk assessment and management
+- Investment recommendation generation
 
 **Not Suitable For:**
-- [Anti-pattern 1]
-- [Anti-pattern 2]
+- Real-time trading advice
+- Financial planning or tax advice
+- Guaranteed investment returns
+- Cryptocurrency analysis
 
 **Performance:**
-- Average processing time: ~[X] seconds
-- Max concurrent requests: [N]
-- Memory per request: [X]MB
+- Average processing time: ~2 seconds
+- Max concurrent requests: 5
+- Memory per request: 512MB
+- Max stocks per query: 10
 
 ---
 
@@ -289,9 +313,9 @@ uv run pre-commit run -a
 Contributions are welcome! Please follow these steps:
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature` 
-3. Commit your changes: `git commit -m 'Add amazing feature'` 
-4. Push to the branch: `git push origin feature/amazing-feature` 
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
@@ -341,5 +365,6 @@ uvx cookiecutter https://github.com/getbindu/create-bindu-agent.git
   <a href="https://bindus.directory">🌐 Agent Directory</a>
 </p>
 
-#   i n v e s t m e n t - a g e n t  
+#   i n v e s t m e n t - a g e n t 
+ 
  
